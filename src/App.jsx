@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
-import Login from './components/login'; //login component
+//login component
 import AdminDashboard from './components/AdminDashboard';
 import Form from "d:/Final Project/final-project/src/components/form";
 import Services from "./components/Service";
