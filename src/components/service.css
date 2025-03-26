@@ -1,0 +1,422 @@
+/* Services Section */
+body{
+    width: 100vw;
+}
+.services {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f8f9fa;
+  }
+  
+  .services h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .services p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .service-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .card {
+    position: relative;
+    width: 280px;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card-content {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 20px;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+  }
+  
+  .card p {
+    font-size: 1.1rem;
+  }
+  
+  .card ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+  
+  .card ul li {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    opacity: 0.9;
+  }
+  
+  /* Services.css */
+  
+  /* Gallery Section */
+  .gallery {
+    margin: 40px 0;
+    text-align: center;
+    width: 100vw;
+  }
+  
+  .gallery h2 {
+    margin-bottom: 10px;
+  }
+  
+  .gallery p {
+    margin-bottom: 20px;
+  }
+  
+  .gallery-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 20px;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .gallery-grid img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    opacity: 0; /* Start with images hidden */
+    transform: translateY(20px); /* Start slightly below */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  /* Hide scrollbar for a cleaner look */
+  .gallery-grid::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Animation for images */
+  .gallery-grid img.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Hover effect for images */
+  .gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+/* Futuristic CTA */
+.cta {
+    text-align: center;
+    padding: 120px 20px;
+    margin-top: 100px;
+    position: relative;
+    overflow: hidden;
+    background: 
+      radial-gradient(circle at 70% 30%, rgba(100, 81, 255, 0.2) 0%, transparent 40%),
+      linear-gradient(to bottom, #0f0f12 0%, #1a1a2e 100%);
+  }
+  
+  .cta h2 {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, #00dbde, #fc00ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 800;
+    letter-spacing: -2px;
+  }
+  
+  .cta p {
+    font-size: 1.3rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 700px;
+    margin: 0 auto 50px;
+    line-height: 1.7;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 20px 50px;
+    background: linear-gradient(90deg, #00dbde, #fc00ff);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 219, 222, 0.3);
+    transition: all 0.4s ease;
+    z-index: 1;
+  }
+  
+  .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #fc00ff, #00dbde);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 219, 222, 0.4);
+  }
+  
+  .cta-button:hover::before {
+    opacity: 1;
+  }
+  
+  /* Scrollbar styling */
+  .gallery-grid::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .gallery-grid::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+  }
+  
+  .gallery-grid::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #00dbde, #fc00ff);
+    border-radius: 10px;
+  }  
+
+  .services-footer {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: white;
+    padding: 60px 20px 30px;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .services-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/dark-stripes.png');
+    opacity: 0.1;
+    z-index: 0;
+  }
+  
+  .footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .footer-brand h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #ff4d4d, #f9cb28);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+  }
+  
+  .footer-brand p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .social-links a:hover {
+    background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+    transform: translateY(-3px);
+  }
+  
+  .footer-links h4,
+  .footer-services h4,
+  .footer-contact h4 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .footer-links h4::after,
+  .footer-services h4::after,
+  .footer-contact h4::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, #ff4d4d, #f9cb28);
+  }
+  
+  .footer-links ul,
+  .footer-services ul,
+  .footer-contact ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links li,
+  .footer-services li,
+  .footer-contact li {
+    margin-bottom: 12px;
+  }
+  
+  .footer-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+  
+  .footer-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, #ff4d4d, #f9cb28);
+    transition: width 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+    color: white;
+  }
+  
+  .footer-links a:hover::after {
+    width: 100%;
+  }
+  
+  .footer-services li {
+    color: rgba(255,255,255,0.7);
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .footer-services li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: #f9cb28;
+  }
+  
+  .footer-contact li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.7);
+  }
+  
+  .footer-contact i {
+    color: #f9cb28;
+    width: 20px;
+    text-align: center;
+  }
+  
+  .footer-bottom {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .footer-bottom p {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+  }
+  
+  .legal-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .legal-links a {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .legal-links a:hover {
+    color: #f9cb28;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-container {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .footer-links h4,
+    .footer-services h4,
+    .footer-contact h4 {
+      margin-bottom: 15px;
+    }
+    
+    .legal-links {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
