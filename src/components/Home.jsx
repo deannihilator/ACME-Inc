@@ -132,9 +132,6 @@ function App() {
           <p>
             <strong>Let's create something extraordinary together.</strong>
           </p>
-          <a href="#contact" class="cta-button">
-            Start Planning Your Event
-          </a>
         </div>
       </section>
 
