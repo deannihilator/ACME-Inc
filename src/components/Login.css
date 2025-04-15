@@ -204,3 +204,26 @@
 .login-page__container {
   animation: float 6s ease-in-out infinite;
 }
+
+.login-page__signup-section {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: var(--text-light);
+}
+
+.login-page__signup-text {
+  font-size: 0.95rem;
+}
+
+.login-page__signup-link {
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.login-page__signup-link:hover {
+  color: var(--primary-light);
+  text-decoration: underline;
+}

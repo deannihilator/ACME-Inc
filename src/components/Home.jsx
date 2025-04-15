@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import axios from 'axios'; // Import axios for making HTTP requests
-import './App.css';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import axios from "axios"; // Import axios for making HTTP requests
+import "./App.css";
+import { Link } from "react-router-dom";
 
 function App() {
   // State for Contact Us form
   const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
   const [submissionStatus, setSubmissionStatus] = useState(null); // To track submission status
 
@@ -24,11 +24,17 @@ function App() {
 
     try {
       // Send data to the backend
-      const response = await axios.post('http://localhost:5000/api/query', contactForm);
+      const response = await axios.post(
+        "http://localhost:5000/api/query",
+        contactForm
+      );
       setSubmissionStatus({ success: true, message: response.data.message });
-      setContactForm({ name: '', email: '', message: '' }); // Clear form after submission
+      setContactForm({ name: "", email: "", message: "" }); // Clear form after submission
     } catch (err) {
-      setSubmissionStatus({ success: false, message: err.response?.data?.error || 'Failed to submit query' });
+      setSubmissionStatus({
+        success: false,
+        message: err.response?.data?.error || "Failed to submit query",
+      });
     }
   };
 
@@ -39,10 +45,18 @@ function App() {
         <div className="logo">ACME</div>
         <nav className="nav">
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="/service">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="#about">About</a>
+            </li>
+            <li>
+              <a href="/service">Services</a>
+            </li>
+            <li>
+              <a href="#contact">Contact</a>
+            </li>
             <li>
               <Link to="/login">Login</Link> {/* Add Login link */}
             </li>
@@ -58,15 +72,69 @@ function App() {
         <div className="hero-contentt">
           <h1>Your Dream Event, Our Expertise</h1>
           <p>We plan, you celebrate!</p>
-          <button className="cta-buttonn"><a href="/service">Explore Services</a></button>
+          <button className="cta-buttonn">
+            <a href="/service">Explore Services</a>
+          </button>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="about">
-        <div className="about-content about-bg">
-          <h2>About Us</h2>
-          <p>We are a team of passionate event planners dedicated to making your events extraordinary.</p>
+      <section id="about" class="about">
+        <div class="tech-orb"></div>
+        <div class="tech-orb"></div>
+
+        <div class="about-content">
+          <h2>ACME</h2>
+          <h3 className="secondd">Crafting Unforgettable Experiences</h3>
+          <p>
+            At <strong>ACME</strong>, we don't just plan events—we create{" "}
+            <strong>
+              moments that inspire, connect, and leave lasting impressions
+            </strong>
+            . As a premier event management company, we blend{" "}
+            <strong>innovation, precision, and passion</strong> to turn your
+            vision into reality, whether it's a corporate gala, product launch,
+            wedding, or immersive brand experience.
+          </p>
+
+          <h3>Why Choose Us?</h3>
+          <ul>
+            <li>
+              <strong>Tailored Creativity</strong>: Every event is unique. We
+              design custom experiences that reflect your brand's identity or
+              personal story.
+            </li>
+            <li>
+              <strong>Seamless Execution</strong>: From concept to cleanup, our
+              meticulous planning ensures flawless events, on time and on
+              budget.
+            </li>
+            <li>
+              <strong>Tech-Forward Approach</strong>: Leveraging cutting-edge
+              tools like virtual reality, interactive installations, and
+              AI-driven logistics to wow your guests.
+            </li>
+            <li>
+              <strong>Global Network</strong>: Access to top-tier vendors,
+              venues, and talent worldwide for events that stand out.
+            </li>
+          </ul>
+
+          <h3>Our Story</h3>
+          <p>
+            Founded in <strong>2015</strong>, we started with a simple mission:{" "}
+            <strong>to redefine event excellence</strong>. Today, we've curated{" "}
+            <strong>500+ events</strong> across three continents, earning
+            accolades for our creativity, reliability, and ability to exceed
+            expectations.
+          </p>
+
+          <p>
+            <strong>Let's create something extraordinary together.</strong>
+          </p>
+          <a href="#contact" class="cta-button">
+            Start Planning Your Event
+          </a>
         </div>
       </section>
 
@@ -75,7 +143,9 @@ function App() {
         <h2>What Our Clients Say</h2>
         <div className="testimonial-carousel">
           <blockquote>"Amazing service! Our wedding was perfect!"</blockquote>
-          <blockquote>"Highly professional team. Highly recommended!"</blockquote>
+          <blockquote>
+            "Highly professional team. Highly recommended!"
+          </blockquote>
         </div>
       </section>
 
@@ -109,7 +179,11 @@ function App() {
           <button type="submit">Send Message</button>
         </form>
         {submissionStatus && (
-          <div className={`submission-status ${submissionStatus.success ? 'success' : 'error'}`}>
+          <div
+            className={`submission-status ${
+              submissionStatus.success ? "success" : "error"
+            }`}
+          >
             {submissionStatus.message}
           </div>
         )}
@@ -117,7 +191,7 @@ function App() {
           <p>Phone: +91 9144147151/ +91 8550855498</p>
           <p>Email: info@acmeevents.com</p>
           <p>Address: #29Akshaya, 2nd Floor,Vinayaka Layout,Kempapura</p>
-            <p>Hebbal, Bengaluru, India</p>
+          <p>Hebbal, Bengaluru, India</p>
         </div>
       </section>
 
