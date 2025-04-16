@@ -39,7 +39,7 @@ function App() {
   };
 
   return (
-    <div className="Apps">
+    <div className="Apps" id="home">
       {/* Header */}
       <header className="headerr">
         <div className="logo">ACME</div>
