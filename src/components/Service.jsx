@@ -1,186 +1,362 @@
-import React, { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './service.css'; // Ensure you have this CSS file for styling
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./service.css";
 
 const Services = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
-  const galleryRef = useRef(null); // Ref for the gallery section
+  const navigate = useNavigate();
+  const cardsRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Function to handle button click
   const handleGetInTouchClick = () => {
-    navigate('/form'); // Redirect to the /form route
+    navigate("/form");
   };
 
-  // Animation for the gallery section
-  useEffect(() => {
-    const galleryImages = galleryRef.current.querySelectorAll('img');
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev === 5 ? 0 : prev + 1));
+  };
 
-    // Function to add the 'visible' class to each image with a delay
-    const animateGallery = () => {
-      galleryImages.forEach((img, index) => {
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev === 0 ? 5 : prev - 1));
+  };
+
+  // Animation for cards and carousel auto-advance
+  useEffect(() => {
+    const animateElements = (elements, animationClass) => {
+      elements.forEach((el, index) => {
         setTimeout(() => {
-          img.classList.add('visible');
-        }, index * 300); // Delay each image by 300ms
+          el.classList.add(animationClass);
+        }, index * 200);
       });
     };
 
-    // Trigger the animation when the gallery section is in the viewport
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            animateGallery();
-            observer.unobserve(entry.target); // Stop observing after animation
+          if (entry.isIntersecting && entry.target === cardsRef.current) {
+            const cards = cardsRef.current.querySelectorAll(".card");
+            animateElements(cards, "card-visible");
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.5 } // Trigger when 50% of the section is visible
+      { threshold: 0.2 }
     );
 
-    if (galleryRef.current) {
-      observer.observe(galleryRef.current);
-    }
+    if (cardsRef.current) observer.observe(cardsRef.current);
 
-    // Cleanup observer
+    // Auto-advance carousel
+    const carouselInterval = setInterval(handleNext, 5000);
+
     return () => {
-      if (galleryRef.current) {
-        observer.unobserve(galleryRef.current);
-      }
+      if (cardsRef.current) observer.unobserve(cardsRef.current);
+      clearInterval(carouselInterval);
     };
   }, []);
 
   return (
-    <>
+    <div className="services-page">
+      {/* Animated background elements */}
+      <div className="orb orb-1"></div>
+      <div className="orb orb-2"></div>
+      <div className="grid-lines"></div>
+
       <section id="services" className="services">
-        <h2>Our Services</h2>
-        <p>
-          We specialize in creating unforgettable experiences tailored to your needs. From dream weddings to high-energy concerts, corporate gatherings, and private parties, we ensure every detail is perfect. Explore our services and let’s make magic happen!
-        </p>
-
-        <div className="service-cards">
-          <div className="card" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2VkZGluZ3N8ZW58MHx8MHx8fDA%3D)" }}>
-            <div className="card-content">
-              <h3>Weddings</h3>
-              <p>Make your special day unforgettable with expert planning, stunning décor, and seamless execution.</p>
-              <ul>
-                <li>Venue selection & décor</li>
-                <li>Catering & entertainment</li>
-                <li>Photography & videography</li>
-                <li>Customized wedding themes</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="card" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1619229665876-f54b2276b7bd?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uY2VydHN8ZW58MHx8MHx8fDA%3D)" }}>
-            <div className="card-content">
-              <h3>Concerts</h3>
-              <p>Create unforgettable musical experiences with seamless event execution.</p>
-              <ul>
-                <li>Stage & sound setup</li>
-                <li>Artist & performer management</li>
-                <li>Lighting & special effects</li>
-                <li>Ticketing & crowd management</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="card" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1664575602276-acd073f104c1?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGNvcnBvcmF0ZXxlbnwwfHwwfHx8MA%3D%3D)" }}>
-            <div className="card-content">
-              <h3>Corporate Events</h3>
-              <p>Professional planning for conferences, product launches, and business networking events.</p>
-              <ul>
-                <li>Venue booking & logistics</li>
-                <li>Technology & presentation setup</li>
-                <li>Catering & team-building activities</li>
-                <li>Branding & promotional materials</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="card" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1566737236500-c8ac43014a67?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHBhcnRpZXN8ZW58MHx8MHx8fDA%3D)" }}>
-            <div className="card-content">
-              <h3>Parties</h3>
-              <p>Fun and memorable celebrations for birthdays, anniversaries, and special occasions.</p>
-              <ul>
-                <li>Theme-based decorations</li>
-                <li>Live entertainment & DJs</li>
-                <li>Custom food & beverage planning</li>
-                <li>Photo booths & party favors</li>
-              </ul>
-            </div>
-          </div>
+        <div className="section-header">
+          <h2 className="section-title">
+            <span className="title-highlight">Our Services</span>
+          </h2>
+          <p className="section-subtitle">
+            We specialize in creating{" "}
+            <span className="text-gradient">unforgettable experiences</span>{" "}
+            tailored to your needs. From dream weddings to high-energy concerts,
+            we ensure every detail is perfect.
+          </p>
         </div>
 
-        {/* Gallery Section */}
-        <section id="gallery" className="gallery" ref={galleryRef}>
-          <h2>Our Work in Action</h2>
-          <p>Take a look at some of the memorable events we’ve organized.</p>
-          <div className="gallery-grid">
-            <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D" alt="Wedding setup" />
-            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D" alt="Live concert" />
-            <img src="https://images.unsplash.com/photo-1642784353476-d226d8d617b3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjR8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D" alt="Corporate event stage" />
-            <img src="https://plus.unsplash.com/premium_photo-1664790560123-c5f839457591?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D" alt="Birthday celebration" />
-            <img src="https://plus.unsplash.com/premium_photo-1664304095595-e428558e8161?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDl8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D" alt="Glamorous wedding night" />
-            <img src="https://plus.unsplash.com/premium_photo-1661486750841-c02a9d22a1a6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTN8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D" alt="Outdoor music festival" />
-            <img src="https://images.unsplash.com/photo-1628436710620-f505080824f5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzB8fGV2ZW50c3xlbnwwfHwwfHx8MA%3D%3D" alt="Outdoor music festival" />
-            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGV2ZW50fGVufDB8fDB8fHww" alt="Event setup" />
+        <div className="service-cards" ref={cardsRef}>
+          {[
+            {
+              title: "Weddings",
+              desc: "Make your special day unforgettable with expert planning, stunning décor, and seamless execution.",
+              features: [
+                "Venue selection & décor",
+                "Catering & entertainment",
+                "Photography & videography",
+                "Customized wedding themes",
+              ],
+              bgImage:
+                "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac",
+            },
+            {
+              title: "Concerts",
+              desc: "Create unforgettable musical experiences with seamless event execution.",
+              features: [
+                "Stage & sound setup",
+                "Artist & performer management",
+                "Lighting & special effects",
+                "Ticketing & crowd management",
+              ],
+              bgImage:
+                "https://images.unsplash.com/photo-1619229665876-f54b2276b7bd",
+            },
+            {
+              title: "Corporate Events",
+              desc: "Professional planning for conferences, product launches, and business networking events.",
+              features: [
+                "Venue booking & logistics",
+                "Technology & presentation setup",
+                "Catering & team-building",
+                "Branding & promotional materials",
+              ],
+              bgImage:
+                "https://images.unsplash.com/photo-1664575602276-acd073f104c1",
+            },
+
+            {
+              title: "Birthdays",
+              desc: "Fun and memorable celebrations for birthdays, anniversaries, and special occasions.",
+              features: [
+                "Theme-based decorations",
+                "Live entertainment & DJs",
+                "Custom food & beverage planning",
+                "Photo booths & party favors",
+              ],
+              bgImage:
+                "https://plus.unsplash.com/premium_photo-1663839412026-51a44cfadfb8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmlydGhkYXl8ZW58MHx8MHx8fDA%3D",
+            },
+            {
+              title: "Babyshower",
+              desc: "Fun and memorable celebrations for birthdays, anniversaries, and special occasions.",
+              features: [
+                "Theme-based decorations",
+                "Live entertainment & DJs",
+                "Custom food & beverage planning",
+                "Photo booths & party favors",
+              ],
+              bgImage:
+                "https://images.unsplash.com/photo-1617140545010-5533614d98b5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmFieXNob3dlcnxlbnwwfHwwfHx8MA%3D%3D",
+            },
+            {
+              title: "Parties",
+              desc: "Fun and memorable celebrations for birthdays, anniversaries, and special occasions.",
+              features: [
+                "Theme-based decorations",
+                "Live entertainment & DJs",
+                "Custom food & beverage planning",
+                "Photo booths & party favors",
+              ],
+              bgImage:
+                "https://images.unsplash.com/photo-1566737236500-c8ac43014a67",
+            },
+          ].map((service, index) => (
+            <div
+              key={index}
+              className="card"
+              style={{ backgroundImage: `url(${service.bgImage})` }}
+            >
+              <div className="card-overlay"></div>
+              <div className="card-content">
+                <h3>{service.title}</h3>
+                <p>{service.desc}</p>
+                <ul>
+                  {service.features.map((feature, i) => (
+                    <li key={i}>{feature}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <section id="gallery" className="gallery-carousel">
+          <div className="section-header">
+            <h2 className="section-title">
+              <span className="title-highlight">Event Showcase</span>
+            </h2>
+            <p className="section-subtitle">
+              Explore our <span className="text-gradient">highlight reel</span>{" "}
+              of memorable moments
+            </p>
+          </div>
+
+          <div className="carousel-container">
+            <button className="carousel-nav prev" onClick={handlePrev}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z" />
+              </svg>
+            </button>
+
+            <div className="carousel-track">
+              {[
+                {
+                  id: 1,
+                  img: "https://images.unsplash.com/photo-1531058020387-3be344556be6",
+                  title: "Elegant Wedding",
+                  desc: "Full-service wedding planning and execution",
+                },
+                {
+                  id: 2,
+                  img: "https://images.unsplash.com/photo-1511578314322-379afb476865",
+                  title: "Concert Production",
+                  desc: "Stage design and artist management",
+                },
+                {
+                  id: 3,
+                  img: "https://images.unsplash.com/photo-1642784353476-d226d8d617b3",
+                  title: "Corporate Summit",
+                  desc: "End-to-end corporate event solutions",
+                },
+                {
+                  id: 4,
+                  img: "https://images.unsplash.com/premium_photo-1664790560123-c5f839457591",
+                  title: "Birthday Celebration",
+                  desc: "Custom themed parties",
+                },
+                {
+                  id: 5,
+                  img: "https://images.unsplash.com/premium_photo-1664304095595-e428558e8161",
+                  title: "Gala Dinner",
+                  desc: "Luxury event experiences",
+                },
+                {
+                  id: 6,
+                  img: "https://images.unsplash.com/premium_photo-1661486750841-c02a9d22a1a6",
+                  title: "Music Festival",
+                  desc: "Large-scale outdoor productions",
+                },
+              ].map((event, index) => (
+                <div
+                  key={event.id}
+                  className={`carousel-slide ${
+                    index === activeIndex ? "active" : ""
+                  }`}
+                  style={{
+                    transform: `translateX(${(index - activeIndex) * 100}%)`,
+                  }}
+                >
+                  <div
+                    className="slide-image"
+                    style={{ backgroundImage: `url(${event.img})` }}
+                  >
+                    <div className="slide-content">
+                      <h3>{event.title}</h3>
+                      <p>{event.desc}</p>
+                      <button className="view-more">View Details</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <button className="carousel-nav next" onClick={handleNext}>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="carousel-dots">
+            {[0, 1, 2, 3, 4, 5].map((dot) => (
+              <button
+                key={dot}
+                className={`dot ${dot === activeIndex ? "active" : ""}`}
+                onClick={() => setActiveIndex(dot)}
+              />
+            ))}
           </div>
         </section>
 
-        {/* Call to Action */}
-        <div className="cta">
-          <h2>Ready to Plan Your Event?</h2>
-          <p>Let’s bring your vision to life! Contact us today to start planning your perfect event.</p>
-          <button onClick={handleGetInTouchClick} className="cta-button">
-            Get in Touch
-          </button>
+        <div className="cta-section">
+          <div className="cta-content">
+            <h2>Ready to Plan Your Event?</h2>
+            <p>
+              Let's bring your vision to life! Contact us today to start
+              planning your perfect event.
+            </p>
+            <button onClick={handleGetInTouchClick} className="cta-button">
+              <span>Get in Touch</span>
+              <div className="button-hover-effect"></div>
+            </button>
+          </div>
         </div>
-        <footer className="services-footer">
-  <div className="footer-container">
-    <div className="footer-brand">
-      <h3>ACME Events</h3>
-      <p>Creating unforgettable experiences since 2010</p>
-      <div className="social-links">
-        <a href="#" aria-label="Facebook"><i className=""></i></a>
-        <a href="#" aria-label="Instagram"><i className=""></i></a>
-        <a href="#" aria-label="Twitter"><i className=""></i></a>
-        <a href="#" aria-label="LinkedIn"><i className=""></i></a>
-      </div>
-    </div>
-
-    <div className="footer-links">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="/testimonials">Testimonials</a></li>
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-    </div>
-    <div className="footer-contact">
-      <h4>Contact Us</h4>
-      <ul>
-        <li><i className="fas fa-map-marker-alt"></i> #29 Akshaya, Hebbal,Bengaluru,India</li>
-        <li><i className="fas fa-phone"></i> +91 9144147151</li>
-        <li><i className="fas fa-envelope"></i> info@acmeevents.com</li>
-        <li><i className="fas fa-clock"></i> Mon-Sat: 9AM - 8PM</li>
-      </ul>
-    </div>
-  </div>
-
-  <div className="footer-bottom">
-    <p>&copy; {new Date().getFullYear()} ACME Enterprises. All rights reserved.</p>
-    <div className="legal-links">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
-      <a href="/cookies">Cookie Policy</a>
-    </div>
-  </div>
-</footer>
       </section>
-    </>
+
+      <footer className="services-footer">
+        <div className="footer-container">
+          <div className="footer-brand">
+            <h3>ACME Events</h3>
+            <p>Creating unforgettable experiences since 2010</p>
+            <div className="social-links">
+              {["facebook", "instagram", "twitter", "linkedin"].map(
+                (social) => (
+                  <a key={social} href="#" aria-label={social}>
+                    <i className={`fab fa-${social}`}></i>
+                  </a>
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              {[
+                "Home",
+                "Services",
+                "Gallery",
+                "Testimonials",
+                "About Us",
+                "Contact",
+              ].map((link) => (
+                <li key={link}>
+                  <a href={`/${link.toLowerCase().replace(" ", "-")}`}>
+                    {link}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="footer-contact">
+            <h4>Contact Us</h4>
+            <ul>
+              <li>
+                <i className="fas fa-map-marker-alt"></i> #29 Akshaya, Hebbal,
+                Bengaluru, India
+              </li>
+              <li>
+                <i className="fas fa-phone"></i> +91 9144147151
+              </li>
+              <li>
+                <i className="fas fa-envelope"></i> info@acmeevents.com
+              </li>
+              <li>
+                <i className="fas fa-clock"></i> Mon-Sat: 9AM - 8PM
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p>
+            &copy; {new Date().getFullYear()} ACME Enterprises. All rights
+            reserved.
+          </p>
+          <div className="legal-links">
+            {["Privacy Policy", "Terms of Service", "Cookie Policy"].map(
+              (policy) => (
+                <a
+                  key={policy}
+                  href={`/${policy.toLowerCase().replace(" ", "-")}`}
+                >
+                  {policy}
+                </a>
+              )
+            )}
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 };
 
