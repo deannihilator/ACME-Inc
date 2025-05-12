@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import "./service.css";
 
 const Services = () => {
@@ -174,7 +175,7 @@ const Services = () => {
               <span className="title-highlight">Event Showcase</span>
             </h2>
             <p className="section-subtitle">
-              Explore our <span className="text-gradient">highlight reel</span>{" "}
+              Explore our <span className="text-gradient">highlights</span>{" "}
               of memorable moments
             </p>
           </div>
@@ -285,7 +286,7 @@ const Services = () => {
         <div className="footer-container">
           <div className="footer-brand">
             <h3>ACME Events</h3>
-            <p>Creating unforgettable experiences since 2010</p>
+            <p>Creating unforgettable experiences since 2022</p>
             <div className="social-links">
               {["facebook", "instagram", "twitter", "linkedin"].map(
                 (social) => (
@@ -301,17 +302,14 @@ const Services = () => {
             <h4>Quick Links</h4>
             <ul>
               {[
-                "Home",
-                "Services",
-                "Gallery",
-                "Testimonials",
-                "About Us",
-                "Contact",
-              ].map((link) => (
-                <li key={link}>
-                  <a href={`/${link.toLowerCase().replace(" ", "-")}`}>
-                    {link}
-                  </a>
+                { name: "Home", path: "/" },
+                { name: "Gallery", path: "/gallery" },
+                { name: "Testimonials", path: "/testimonials" },
+                { name: "About Us", path: "/about-us" },
+                { name: "Contact", path: "/contact" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link to={item.path}>{item.name}</Link>
                 </li>
               ))}
             </ul>
